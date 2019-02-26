@@ -1,29 +1,45 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
+  <v-app>
+    <v-toolbar dark color="black" style="font-family: 'ZCOOL QingKe HuangYou', cursive;">
+      <div class="white--text text-uppercase md-and-up">
+         <router-link to='/' style="text-decoration: none;">
+          <v-btn flat>
+            <span style="color:greenyellow;font-size:200%;">Neon</span> 
+          </v-btn> 
+         </router-link>
+      </div>
+      <v-spacer></v-spacer>
+      <SearchBar/>
+      <router-link to='/about' style="text-decoration: none;">
+        <v-btn flat>
+          <span class="mr-1" style="color:greenyellow;font-size:20px">About</span> 
+        </v-btn> 
+      </router-link>
+      <router-link to='/support' style="text-decoration: none;">
+        <v-btn flat>
+          <span class="mr-1" style="color:greenyellow;font-size:20px">Support</span> 
+        </v-btn> 
+      </router-link>
+    </v-toolbar>
     <router-view/>
-  </div>
+  </v-app>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-#nav {
-  padding: 30px;
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-    &.router-link-exact-active {
-      color: #42b983;
+<script>
+//import HelloWorld from '@/components/HelloWorld';
+//import Sheets from '@/components/Sheets';
+//import Intro from '@/components/Intro';
+import SearchBar from '@/components/SearchBar';
+export default {
+  name: 'App',
+  components: {
+    SearchBar,
+  },
+  data() {
+    return {
+      //
     }
   }
 }
-</style>
+</script>
+
