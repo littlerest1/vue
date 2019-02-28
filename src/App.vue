@@ -37,6 +37,45 @@
 //import Intro from '@/components/Intro';
 import SearchBar from '@/components/SearchBar';
 import Login from '@/components/Login';
+const locations = [
+  {
+    position: {
+      lat: 48.160910,
+      lng: 16.383330,
+    },
+  },
+  {
+    position: {
+      lat: 48.174270,
+      lng: 16.329620,
+    },
+  },
+  {
+    position: {
+      lat: 48.146140,
+      lng: 16.297030,
+    },
+  },
+  {
+    position: {
+      lat: 48.135830,
+      lng: 16.194460,
+    },
+  },
+  {
+    position: {
+      lat: 48.306091,
+      lng: 14.286440,
+    },
+  },
+  {
+    position: {
+      lat: 47.503040,
+      lng: 9.747070,
+    },
+  },
+];
+
 export default {
   name: 'App',
   components: {
@@ -50,4 +89,17 @@ export default {
   }
 }
 </script>
+
+<style>
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+.App {
+  width: 100vw;
+  height: 100vh;
+}
+</style>
+
 
