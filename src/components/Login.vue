@@ -32,21 +32,79 @@
             <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn color="orange" flat @click="dialog = false">Close</v-btn>
+            <v-dialog v-model="Register" persistent max-width="600px">
+                <template v-slot:activator="{ on }">
+                    <v-btn color="orange" flat @click="dialog = false,Register = true">Register</v-btn>
+                </template>
+                 <v-card>
+                    <v-card-title>
+                      <span class="headline" style="color:orange;">Register form</span>
+                    </v-card-title>
+                    <v-card-text>
+                       <v-container grid-list-md>
+                          <v-layout wrap>
+                            <v-flex xs12 sm6 md4>
+                              <v-text-field label="First name*" required v-model="first_name"></v-text-field>
+                            </v-flex>
+                            <v-flex xs12 sm6 md4>
+                              <v-text-field
+                                label="Last name*"
+                                hint="example of persistent helper text"
+                                persistent-hint
+                                required
+                                v-model="last_name"
+                              ></v-text-field>
+                            </v-flex>
+                            <v-flex xs12>
+                              <v-text-field label="Email*" required v-model="Email"></v-text-field>
+                            </v-flex>
+                            <v-flex xs12>
+                              <v-text-field label="Username*" required v-model="UsernameR"></v-text-field>
+                            </v-flex>
+                            <v-flex xs12>
+                              <v-text-field label="Password*" type="password"  required v-model="PasswordR"></v-text-field>
+                            </v-flex>
+
+                            </v-layout>
+                          </v-container>
+                          <small>*indicates required field</small>
+                      </v-card-text>
+                      <v-alert
+                          :value="false"
+                          type="error"
+                          v-model="warn1"
+                          >
+                          Pleaser enter all information
+                      </v-alert>
+                      <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn color="orange" flat @click="Register = false">Close</v-btn>
+                        <v-btn color="orange" flat  @click="submit1" @keyup.enter="submit1">Register</v-btn>
+                      </v-card-actions>
+                  </v-card>
+            </v-dialog>
             <v-btn color="orange" flat @click="submit" @keyup.enter="submit">Login</v-btn>
             </v-card-actions>
         </v-card>
-        </v-dialog>
+      </v-dialog>
     </v-layout>
   </div>
 </template>
 
 <script>
-  export default {
+export default{
     data: () => ({
       dialog: false,
+      Register: false,
+      PasswordR: '',
+      UsernameR: '',
       Password:'',
       Username:'',
+      Email:'',
+      first_name:'',
+      last_name:'',
       warn: false,
+      warn1: false,
     }),
     methods:{
         submit: function (){
@@ -58,6 +116,17 @@
             else{
                 this.warn = true;
             }
+        },
+        submit1: function(){
+              console.log(`Username is ${this.UsernameR} and pw is ${this.PasswordR}`);
+              console.log(`First name is ${this.first_name} and last is ${this.last_name}`);
+              if(this.PasswordR != '' && this.UsernamRe != '' && this.first_name != '' && this.last_name != ''){
+                 this.Register = false;
+                 this.warn1 = false;
+              }
+              else{
+                  this.warn1 = true;
+              }
         }
     }
   }
