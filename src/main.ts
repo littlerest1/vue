@@ -9,12 +9,14 @@ import 'vuetify/dist/vuetify.min.css';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faTwitter, faFacebook, faStackOverflow, faGithub } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import * as VueGoogleMaps from 'vue2-google-maps'
+import * as VueGoogleMaps from 'vue2-google-maps';
+import axios from 'axios';
 
 Vue.use(Vuetify);
 library.add(faTwitter, faFacebook, faStackOverflow, faGithub );
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 Vue.config.productionTip = false;
+Vue.prototype.$axios = axios;
 
 new Vue({
   router,
@@ -29,7 +31,6 @@ Vue.use(VueGoogleMaps, {
     // OR: libraries: 'places,drawing'
     // OR: libraries: 'places,drawing,visualization'
     // (as you require)
- 
     //// If you want to set the version, you can do so:
     // v: '3.26',
   },

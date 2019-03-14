@@ -37,3 +37,9 @@ npm run test:unit
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+
+### API keys
+Google Map: AIzaSyDjxqr5F7xTf1c1ZnEfbIDE4-Q7a37H3Sk
+
+Google News: fe60c64e28fc4b939299c59feffce056

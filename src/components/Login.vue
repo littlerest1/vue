@@ -32,7 +32,7 @@
             <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn color="orange" flat @click="dialog = false">Close</v-btn>
-            <v-dialog v-model="Register" persistent max-width="600px">
+            <v-dialog v-model="Register" persistent max-width="600px" height="700px;">
                 <template v-slot:activator="{ on }">
                     <v-btn color="orange" flat @click="dialog = false,Register = true">Register</v-btn>
                 </template>
@@ -98,15 +98,15 @@ export default{
       Register: false,
       PasswordR: '',
       UsernameR: '',
-      Password:'',
-      Username:'',
-      Email:'',
-      first_name:'',
-      last_name:'',
+      Password: '',
+      Username: '',
+      Email: '',
+      first_name: '',
+      last_name: '',
       warn: false,
       warn1: false,
     }),
-    methods:{
+    methods: {
         submit: function (){
             console.log(`Username is ${this.Username} and pw is ${this.Password}`);
             if(this.Password != '' && this.Username != ''){
