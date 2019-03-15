@@ -76,6 +76,13 @@
                           >
                           Pleaser enter all information
                       </v-alert>
+                       <v-alert
+                          :value="false"
+                          type="error"
+                          v-model="warn2"
+                          >
+                          Username is already exist
+                      </v-alert>
                       <v-card-actions>
                         <v-spacer></v-spacer>
                         <v-btn color="orange" flat @click="Register = false">Close</v-btn>
@@ -92,6 +99,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default{
     data: () => ({
       dialog: false,
@@ -105,6 +113,8 @@ export default{
       last_name: '',
       warn: false,
       warn1: false,
+      warn2: false,
+      url: 'http://localhost:8080/v0/users/',
     }),
     methods: {
         submit: function (){
@@ -120,9 +130,28 @@ export default{
         submit1: function(){
               console.log(`Username is ${this.UsernameR} and pw is ${this.PasswordR}`);
               console.log(`First name is ${this.first_name} and last is ${this.last_name}`);
-              if(this.PasswordR != '' && this.UsernamRe != '' && this.first_name != '' && this.last_name != ''){
-                 this.Register = false;
-                 this.warn1 = false;
+              if(this.PasswordR != '' && this.UsernameR != '' && this.first_name != '' && this.last_name != ''){
+              
+                axios.post('http://localhost:8080/v0/users/',{
+                    "username": this.UsernameR,
+                    "password": this.PasswordR,
+                    "first_name": this.first_name,
+                    "last_name": this.last_name,
+                })
+                  .then((response)  =>  {
+                    console.log(response.status);
+                    if(response.status == 201){
+                      this.Register = false;
+                      this.warn1 = false;
+                    }
+                    else{
+                      this.warn2 = true;
+                    }
+                  }, (error)  =>  {
+                     console.log(error);
+                     this.warn2 = true;
+                  })        
+
               }
               else{
                   this.warn1 = true;
