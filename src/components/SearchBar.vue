@@ -20,17 +20,17 @@
 </template>
 
 <script>
-  export default {
-    name:'search',
-    data () {
-      return {
-        search: '',
-      }
-    },
-    methods:{
-        submit: function (){
-            console.log(`${this.search}`)
-        }
+export default {
+  name: 'search',
+  data () {
+    return {
+      search: ''
+    }
+  },
+  methods: {
+    submit: function () {
+      console.log(`${this.search}`)
     }
   }
+}
 </script>

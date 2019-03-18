@@ -16,13 +16,13 @@
 
 <script>
 
-  export default {
-    name: 'HelloWorld',
-    components: {
-    },
-    data: () => ({
-    }),
-  }
+export default {
+  name: 'HelloWorld',
+  components: {
+  },
+  data: () => ({
+  })
+}
 </script>
 
 <style>

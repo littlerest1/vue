@@ -1,23 +1,42 @@
 <template>
-  <v-layout>
-    <v-flex v-for="i in 3" :key="`4${i}`" xs4 mr-4 mb-4 ml-4 mt-4>
+<v-container grid-list-xl>
+  <v-layout wrap>
+  <!--  <v-flex v-for="i in 3" :key="`4${i}`" xs4 mr-4 mb-4 ml-4 mt-4> -->
+    <v-flex xs4
+        v-for="(item, index) in wholeResponse"
+        :key="index"
+        mb-2>
       <v-card>
         <v-img
-          src="https://cdn.vuetifyjs.com/images/cards/desert.jpg"
+          v-bind:src="item"
           aspect-ratio="2.75"
         ></v-img>
 
-        <v-card-title primary-title>
+     <!--   <v-card-title primary-title>
           <div>
-            <v-btn icon href="http://www.google.com" style="color:orange;" large>
-             {{headline}}
+            <v-btn icon href="" style="color:orange;">
+             {{ item.title }}
             </v-btn>
-            <div> Publish Date : {{ publish }} </div>
+            <div> Publish Date : {{ item.publishedAt }} </div>
             <div> Disease : {{ disease }} </div>
             <div> {{ mainText }} </div>
           </div>
-        </v-card-title>
-
+        </v-card-title> -->
+        <!--    <v-subheader
+              v-if="item.title"
+              :key="item.title"
+              style="color:orange"
+            >
+             {{item.title}}
+            </v-subheader>-->
+             <a v-bind:href="item.url" style="color:orange;font-size:20px;font-weight:bold">
+              {{ item.title }}
+             </a>
+             <div>
+             </div>
+             <div> Publish Date : {{ item.publishedAt }} </div>
+            <div> Disease : {{ disease }} </div>
+            <div> {{ item.description }} </div>
         <v-card-actions>
             <div class="text-xs-center">
             <v-dialog
@@ -38,9 +57,9 @@
                   class="headline"
                   style="color:orange;font-weight:bold;"
                 >
-                 <v-btn icon href="http://www.google.com" style="color:orange;" large>
-                  {{headline}}
-                 </v-btn>
+                 <a v-bind:href="item.url" style="color:orange;font-size:20px;font-weight:bold">
+                    {{ item.title }}
+                   </a>
                 </v-card-title>
                 <v-divider></v-divider>
                 <v-card-text>
@@ -74,7 +93,7 @@
                   </v-toolbar>
                 </div>
                 <template v-for="(item) in list">
-                   <v-list 
+                   <v-list
                       two-line
                      :key="item.name"
                    >
@@ -82,7 +101,6 @@
                       <v-list-tile-title v-html="item.name + ' : ' + item.comment" style="color:orange"></v-list-tile-title>
                     </v-list-tile-content>
                   </v-list>
- 
 
                 </template>
                 <v-divider></v-divider>
@@ -102,40 +120,58 @@
           </div>
         </v-card-actions>
       </v-card>
-      
+
     </v-flex>
   </v-layout>
+</v-container>
 </template>
 
 <script>
-  export default {
-    data () {
-      return {
-        comment:'',
-        list:[
-           { name: 'Today',
-             comment: 'good article',
-           },
-        ],
-        dialog:false,
-        headline: 'First aid',
-        publish: new Date().toISOString().substr(0, 10),
-        disease: 'H5N1',
-        syndrome: 'something',
-        dDate:  new Date().toISOString().substr(0, 10),
-        type:'Death',
-        mainText: 'Lorem ipsum dolor sit amet, brute iriure accusata ne mea. Eos suavitate referrentur ad, te duo agam libris qualisque, utroque quaestio accommodare no qui. Et percipit laboramus usu, no invidunt verterem nominati mel. Dolorem ancillae an mei, ut putant invenire splendide mel, ea nec propriae adipisci. Ignota salutandi accusamus in sed, et per malis fuisset, qui id ludus appareat.',
-        details:'',
-        location:'somewhere',
-        effect: '12',
-        detailText: 'Lorem ipsum dolor sit amet, brute iriure accusata ne mea. Eos suavitate referrentur ad, te duo agam libris qualisque, utroque quaestio accommodare no qui. Et percipit laboramus usu, no invidunt verterem nominati mel. Dolorem ancillae an mei, ut putant invenire splendide mel, ea nec propriae adipisci. Ignota salutandi accusamus in sed, et per malis fuisset, qui id ludus appareat.'
-      }
-    },
-     methods:{
-        submit: function (){
-            console.log(`${this.comment}`);
-            this.comment='';
+import axios from 'axios'
+export default {
+  data () {
+    return {
+      wholeResponse: [],
+      comment: '',
+      img: '',
+      list: [
+        { name: 'Today',
+          comment: 'good article'
         }
+      ],
+      dialog: false,
+      headline: 'First aid',
+      publish: new Date().toISOString().substr(0, 10),
+      disease: 'H5N1',
+      syndrome: 'something',
+      dDate: new Date().toISOString().substr(0, 10),
+      type: 'Death',
+      mainText: 'Lorem ipsum dolor sit amet, brute iriure accusata ne mea. Eos suavitate referrentur ad, te duo agam libris qualisque, utroque quaestio accommodare no qui. Et percipit laboramus usu, no invidunt verterem nominati mel. Dolorem ancillae an mei, ut putant invenire splendide mel, ea nec propriae adipisci. Ignota salutandi accusamus in sed, et per malis fuisset, qui id ludus appareat.',
+      details: '',
+      location: 'somewhere',
+      effect: '12',
+      detailText: 'Lorem ipsum dolor sit amet, brute iriure accusata ne mea. Eos suavitate referrentur ad, te duo agam libris qualisque, utroque quaestio accommodare no qui. Et percipit laboramus usu, no invidunt verterem nominati mel. Dolorem ancillae an mei, ut putant invenire splendide mel, ea nec propriae adipisci. Ignota salutandi accusamus in sed, et per malis fuisset, qui id ludus appareat.'
     }
+  },
+  methods: {
+    submit: function () {
+      console.log(`${this.comment}`)
+      this.comment = ''
+    }
+  },
+  mounted () {
+    axios
+      .get('http://localhost:8080/v0/articles/')
+      .then(response => {
+        console.log(response.data)
+        if (response.data.result !== []) {
+          this.wholeResponse = response.data.result
+          console.log(`${this.wholeResponse}`)
+        }
+      })
+      .catch(error => {
+        console.log(error)
+      })
   }
+}
 </script>

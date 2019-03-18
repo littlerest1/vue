@@ -1,17 +1,18 @@
-import Vue from 'vue';
-import Router from 'vue-router';
-import Home from './views/Home.vue';
-import About from './views/About.vue';
-import Support from './views/Support.vue';
-import Map from './views/Map.vue';
-Vue.use(Router);
+import Vue from 'vue'
+import Router from 'vue-router'
+import Home from './views/Home.vue'
+import About from './views/About.vue'
+import Support from './views/Support.vue'
+import Map from './views/Map.vue'
+
+Vue.use(Router)
 
 export default new Router({
   routes: [
     {
       path: '/',
       name: 'home',
-      component: Home,
+      component: Home
     },
     {
       path: '/about',
@@ -19,17 +20,17 @@ export default new Router({
       // route level code-splitting
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: About,
+      component: About
     },
     {
       path: '/support',
       name: 'support',
-      component: Support,
+      component: Support
     },
     {
       path: '/map',
       name: 'map',
-      component: Map,
-    },
-  ],
-});
+      component: Map
+    }
+  ]
+})

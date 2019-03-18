@@ -3,7 +3,7 @@
     <v-layout>
         <v-dialog v-model="dialog" persistent max-width="600px">
         <v-btn slot="activator" color="#ADFF2F" dark flat p3>
-            <span class="mr-1" style="color:greenyellow;font-size:20px">Login</span> 
+            <span class="mr-1" style="color:greenyellow;font-size:20px">Login</span>
         </v-btn>
         <v-card>
             <v-card-title>
@@ -28,11 +28,18 @@
             >
             Pleaser enter username and password
             </v-alert>
+             <v-alert
+            :value="false"
+            type="error"
+            v-model="warn3"
+            >
+            Invalid username and password
+            </v-alert>
             </v-card-text>
             <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn color="orange" flat @click="dialog = false">Close</v-btn>
-            <v-dialog v-model="Register" persistent max-width="600px">
+            <v-dialog v-model="Register" persistent max-width="600px" height="700px;">
                 <template v-slot:activator="{ on }">
                     <v-btn color="orange" flat @click="dialog = false,Register = true">Register</v-btn>
                 </template>
@@ -76,6 +83,13 @@
                           >
                           Pleaser enter all information
                       </v-alert>
+                       <v-alert
+                          :value="false"
+                          type="error"
+                          v-model="warn2"
+                          >
+                          Username is already exist
+                      </v-alert>
                       <v-card-actions>
                         <v-spacer></v-spacer>
                         <v-btn color="orange" flat @click="Register = false">Close</v-btn>
@@ -92,42 +106,85 @@
 </template>
 
 <script>
-export default{
-    data: () => ({
-      dialog: false,
-      Register: false,
-      PasswordR: '',
-      UsernameR: '',
-      Password:'',
-      Username:'',
-      Email:'',
-      first_name:'',
-      last_name:'',
-      warn: false,
-      warn1: false,
-    }),
-    methods:{
-        submit: function (){
-            console.log(`Username is ${this.Username} and pw is ${this.Password}`);
-            if(this.Password != '' && this.Username != ''){
-                 this.dialog = false;
-                 this.warn = false;
+import axios from 'axios'
+export default {
+  data: () => ({
+    dialog: false,
+    Register: false,
+    PasswordR: '',
+    UsernameR: '',
+    Password: '',
+    Username: '',
+    Email: '',
+    first_name: '',
+    last_name: '',
+    warn: false,
+    warn1: false,
+    warn2: false,
+    warn3: false,
+    url: 'http://localhost:8080/v0/jwt/'
+  }),
+  methods: {
+    submit: function () {
+      console.log(`Username is ${this.Username} and pw is ${this.Password}`)
+      if (this.Password !== '' && this.Username !== '') {
+        axios.post(this.url, {
+          'username': this.Username,
+          'password': this.Password
+        })
+          .then((response) => {
+            console.log(response)
+            if (response.status === 200) {
+              console.log(response.data)
+              localStorage.setItem('token', response.data.token)
+              this.dialog = false
+              this.warn = false
+              this.warn3 = false
+            } else {
+              this.warn3 = true
+              this.warn = false
             }
-            else{
-                this.warn = true;
+          }, (error) => {
+            console.log(error)
+            this.warn3 = true
+            this.warn = false
+          })
+      } else {
+        this.warn = true
+        this.warn3 = false
+      }
+    },
+    submit1: function () {
+      console.log(`Username is ${this.UsernameR} and pw is ${this.PasswordR}`)
+      console.log(`First name is ${this.first_name} and last is ${this.last_name}`)
+      if (this.PasswordR !== '' && this.UsernameR !== '' && this.first_name !== '' && this.last_name !== '') {
+        axios.post('http://localhost:8080/v0/users/', {
+          'username': this.UsernameR,
+          'password': this.PasswordR,
+          'first_name': this.first_name,
+          'last_name': this.last_name
+        })
+          .then((response) => {
+            console.log(response)
+            if (response.status === 201) {
+              console.log(response.data)
+              this.Register = false
+              this.warn1 = false
+              this.warn2 = false
+            } else {
+              this.warn2 = true
+              this.warn1 = false
             }
-        },
-        submit1: function(){
-              console.log(`Username is ${this.UsernameR} and pw is ${this.PasswordR}`);
-              console.log(`First name is ${this.first_name} and last is ${this.last_name}`);
-              if(this.PasswordR != '' && this.UsernamRe != '' && this.first_name != '' && this.last_name != ''){
-                 this.Register = false;
-                 this.warn1 = false;
-              }
-              else{
-                  this.warn1 = true;
-              }
-        }
+          }, (error) => {
+            console.log(error)
+            this.warn2 = true
+            this.warn1 = false
+          })
+      } else {
+        this.warn1 = true
+        this.warn2 = false
+      }
     }
   }
+}
 </script>
