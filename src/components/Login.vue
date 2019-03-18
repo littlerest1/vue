@@ -1,9 +1,12 @@
 <template>
   <div class="text-xs-center">
     <v-layout>
+        <v-btn slot="activator" color="white" dark flat v-if="!visible">
+          <span class="mr-1" style="color:white;font-size:20px" @click="logoutLocal">Logout</span>
+        </v-btn>
         <v-dialog v-model="dialog" persistent max-width="600px">
-        <v-btn slot="activator" color="#ADFF2F" dark flat p3>
-            <span class="mr-1" style="color:greenyellow;font-size:20px">Login</span>
+        <v-btn slot="activator" color="white" dark flat v-if="visible">
+          <span class="mr-1" style="font-size:20px">Login</span>
         </v-btn>
         <v-card>
             <v-card-title>
@@ -122,6 +125,7 @@ export default {
     warn1: false,
     warn2: false,
     warn3: false,
+    visible: true,
     url: 'http://localhost:8080/v0/jwt/'
   }),
   methods: {
@@ -140,6 +144,7 @@ export default {
               this.dialog = false
               this.warn = false
               this.warn3 = false
+              this.visible = false
             } else {
               this.warn3 = true
               this.warn = false
@@ -153,6 +158,11 @@ export default {
         this.warn = true
         this.warn3 = false
       }
+    },
+    logoutLocal: function () {
+      console.log('Logging out')
+      localStorage.clear()
+      this.visible = true
     },
     submit1: function () {
       console.log(`Username is ${this.UsernameR} and pw is ${this.PasswordR}`)

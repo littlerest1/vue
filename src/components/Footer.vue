@@ -13,20 +13,20 @@
           v-for="icon in icons"
           :key="icon"
           class="mx-3"
-          style="color:greenyellow"
+          style="color:white"
           icon
         >
           <v-icon size="24px">{{ icon }}</v-icon>
         </v-btn>
       </v-card-text>
 
-      <v-card-text style="color:greenyellow;font-family: 'ZCOOL QingKe HuangYou', cursive;">
-        Phasellus feugiat arcu sapien, et iaculis ipsum elementum sit amet. Mauris cursus commodo interdum. Praesent ut risus eget metus luctus accumsan id ultrices nunc. Sed at orci sed massa consectetur dignissim a sit amet dui. Duis commodo vitae velit et faucibus. Morbi vehicula lacinia malesuada. Nulla placerat augue vel ipsum ultrices, cursus iaculis dui sollicitudin. Vestibulum eu ipsum vel diam elementum tempor vel ut orci. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+      <v-card-text style="color:white;font-family: 'ZCOOL QingKe HuangYou', cursive;">
+        Welcome to Neon project EpiWatch website, we provide updated reports for diseases all over the world. We provide the reliable reports,alerts,analysed articles from the official news website and gorvornment website. All information come from Outbreak News Today...
       </v-card-text>
 
       <v-divider></v-divider>
 
-      <v-card-text style="color:greenyellow;font-family: 'ZCOOL QingKe HuangYou', cursive;">
+      <v-card-text style="color:white;font-family: 'ZCOOL QingKe HuangYou', cursive;">
         &copy;2019 — <strong>Neon</strong>
       </v-card-text>
     </v-card>

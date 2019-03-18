@@ -29,14 +29,14 @@
             >
              {{item.title}}
             </v-subheader>-->
-             <a v-bind:href="item.url" style="color:orange;font-size:20px;font-weight:bold">
-              {{ item.title }}
+             <a v-bind:href="item.url" style="color:orange;font-size:20px;font-weight:bold;text-decoration: none;">
+              {{ item.headline}}
              </a>
              <div>
              </div>
-             <div> Publish Date : {{ item.publishedAt }} </div>
-            <div> Disease : {{ disease }} </div>
-            <div> {{ item.description }} </div>
+             <div> Publish Date : {{ item.publish.substring(0,10) + " " + item.publish.substring(11,19) }} </div>
+            <div> Disease : {{ item.reports }} </div>
+            <div> {{ item.main_text }} </div>
         <v-card-actions>
             <div class="text-xs-center">
             <v-dialog
@@ -58,14 +58,14 @@
                   style="color:orange;font-weight:bold;"
                 >
                  <a v-bind:href="item.url" style="color:orange;font-size:20px;font-weight:bold">
-                    {{ item.title }}
+                    {{ item.headline }}
                    </a>
                 </v-card-title>
                 <v-divider></v-divider>
                 <v-card-text>
                   <div style="color:orange">
-                    <div> Disease : {{ disease }} </div>
-                    <div> Syndrome : {{ syndrome }} </div>
+                    <div> Disease : {{ item.reports }} </div>
+                    <div> Syndrome : {{ item.reports }} </div>
                     <div> Type : {{ type }} </div>
                     <div> Date : {{ dDate }} </div>
                     <div> Location : {{ location }} </div>
@@ -92,13 +92,13 @@
                     </v-text-field>
                   </v-toolbar>
                 </div>
-                <template v-for="(item) in list">
+                <template v-for="(index) in item.comment">
                    <v-list
                       two-line
-                     :key="item.name"
+                     :key="index.name"
                    >
                   <v-list-tile-content>
-                      <v-list-tile-title v-html="item.name + ' : ' + item.comment" style="color:orange"></v-list-tile-title>
+                      <v-list-tile-title v-html="index.name + ' : ' + index.comment" style="color:orange"></v-list-tile-title>
                     </v-list-tile-content>
                   </v-list>
 
@@ -164,9 +164,9 @@ export default {
       .get('http://localhost:8080/v0/articles/')
       .then(response => {
         console.log(response.data)
-        if (response.data.result !== []) {
-          this.wholeResponse = response.data.result
-          console.log(`${this.wholeResponse}`)
+        if (response.data.count !== 0) {
+          this.wholeResponse = response.data.results
+          console.log(`${this.wholeResponse[0].headline}`)
         }
       })
       .catch(error => {

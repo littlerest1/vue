@@ -4,26 +4,27 @@
       <div class="white--text text-uppercase md-and-up">
          <router-link to='/' style="text-decoration: none;">
           <v-btn flat>
-            <span style="color:greenyellow;font-size:200%;">Neon</span>
+            <span style="color:white;font-size:200%;">EpiWATCH</span>
           </v-btn>
          </router-link>
       </div>
       <v-spacer></v-spacer>
       <SearchBar/>
       <Login/>
-      <router-link to='/about' style="text-decoration: none;">
+     <!-- <router-link to='/about' style="text-decoration: none;">
         <v-btn flat>
-          <span class="mr-1" style="color:greenyellow;font-size:20px">About</span>
+          <span class="mr-1" style="color:white;font-size:20px">About</span>
         </v-btn>
       </router-link>
       <router-link to='/support' style="text-decoration: none;">
         <v-btn flat>
-          <span class="mr-1" style="color:greenyellow;font-size:20px">Support</span>
+          <span class="mr-1" style="color:white;font-size:20px">Support</span>
         </v-btn>
       </router-link>
+      -->
       <router-link to='/map' style="text-decoration: none;">
         <v-btn flat>
-          <span class="mr-1" style="color:greenyellow;font-size:20px">Map</span>
+          <span class="mr-1" style="color:white;font-size:20px">Map</span>
         </v-btn>
       </router-link>
     </v-toolbar>

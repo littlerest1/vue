@@ -6,7 +6,7 @@
     >
         <v-text-field
         hide-details
-        color="#9ACD32"
+        color="black"
         prepend-icon="search"
         label="Search disease"
         single-line
