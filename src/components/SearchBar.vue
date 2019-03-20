@@ -20,6 +20,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   name: 'search',
   data () {
@@ -30,6 +31,17 @@ export default {
   methods: {
     submit: function () {
       console.log(`${this.search}`)
+      if (this.search !== '') {
+        axios.get('http://localhost:8080/v0/articles/', {
+          'search': this.search
+        })
+          .then(response => {
+            console.log(response.data)
+          })
+          .catch(error => {
+            console.log(error)
+          })
+      }
     }
   }
 }

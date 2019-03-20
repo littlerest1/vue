@@ -29,7 +29,12 @@ new Vue({
 Vue.use(VueGoogleMaps, {
   load: {
     key: 'AIzaSyDjxqr5F7xTf1c1ZnEfbIDE4-Q7a37H3Sk',
-    libraries: 'places' // This is required if you use the Autocomplete plugin
+    libraries: 'places',
+    load: {
+      region: 'AU',
+      language: 'en'
+    }
+    // This is required if you use the Autocomplete plugin
     // OR: libraries: 'places,drawing'
     // OR: libraries: 'places,drawing,visualization'
     // (as you require)

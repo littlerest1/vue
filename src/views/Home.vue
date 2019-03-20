@@ -1,7 +1,9 @@
 <template>
   <div class="home">
     <Intro/>
-    <h1 style="font-family: 'ZCOOL QingKe HuangYou', cursive;">Today is {{date}} </h1>
+    <h1 style="font-family: 'ZCOOL QingKe HuangYou', cursive;">Today is {{date}}
+          <Location/>
+    </h1>
     <Article/>
     <Footer/>
   </div>
@@ -13,12 +15,14 @@ import Intro from '@/components/Intro.vue' // @ is an alias to /src
 import Sheets from '@/components/Sheets.vue'
 import Footer from '@/components/Footer.vue'
 import Article from '@/components/Articles.vue'
+import Location from '@/components/Location.vue'
 @Component({
   components: {
     Intro,
     Sheets,
     Footer,
-    Article
+    Article,
+    Location
   }
 })
 export default class Home extends Vue {
