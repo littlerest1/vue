@@ -1,17 +1,25 @@
+<!--
+  Main app controller,defines the top tool bar with searchbar and login register entry
+  as well as map entry
+  This contains search bar and login components.
+-->
 <template>
   <v-app>
-    <v-toolbar dark color="black" style="font-family: 'ZCOOL QingKe HuangYou', cursive;">
-      <div class="white--text text-uppercase md-and-up">
+    <v-toolbar dark>
+      <div class="text-uppercase md-and-up">
          <router-link to='/' style="text-decoration: none;">
           <v-btn flat>
-            <span style="color:white;font-size:200%;">EpiWATCH</span>
+            <span style="font-size:200%;">EpiWATCH</span>
           </v-btn>
          </router-link>
       </div>
       <v-spacer></v-spacer>
-      <SearchBar/>
+
+      <!-- Components insert -->
       <Login/>
-     <!-- <router-link to='/about' style="text-decoration: none;">
+     <!--
+       About and support if is neccessary
+       <router-link to='/about' style="text-decoration: none;">
         <v-btn flat>
           <span class="mr-1" style="color:white;font-size:20px">About</span>
         </v-btn>
@@ -22,9 +30,11 @@
         </v-btn>
       </router-link>
       -->
+
+      <!-- map entry  -->
       <router-link to='/map' style="text-decoration: none;">
         <v-btn flat>
-          <span class="mr-1" style="color:white;font-size:20px">Map</span>
+          <span class="mr-1" style="font-size:20px">Map</span>
         </v-btn>
       </router-link>
     </v-toolbar>
@@ -33,10 +43,7 @@
 </template>
 
 <script>
-// import HelloWorld from '@/components/HelloWorld';
-// import Sheets from '@/components/Sheets';
-// import Intro from '@/components/Intro';
-import SearchBar from '@/components/SearchBar'
+// defines the location in maps imports components
 import Login from '@/components/Login'
 const locations = [
   {
@@ -80,7 +87,6 @@ const locations = [
 export default {
   name: 'App',
   components: {
-    SearchBar,
     Login
   },
   data () {
@@ -90,7 +96,7 @@ export default {
   }
 }
 </script>
-
+<!-- Baic web style controls the size of the webpage -->
 <style>
 html,
 body {

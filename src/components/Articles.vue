@@ -1,3 +1,4 @@
+<!-- Initial article section with latest report -->
 <template>
 <v-container grid-list-xl>
   <v-layout wrap>
@@ -8,9 +9,16 @@
         mb-2>
       <v-card>
         <v-img
-          v-bind:src="item"
+          v-if="item.imageUrl != null"
+          v-bind:url = item.imageUrl
           aspect-ratio="2.75"
         ></v-img>
+        <v-img
+          v-else
+          v-bind:href=sampleImage
+          aspect-ratio="2.75"
+        >
+        </v-img>
 
      <!--   <v-card-title primary-title>
           <div>
@@ -120,7 +128,6 @@
           </div>
         </v-card-actions>
       </v-card>
-
     </v-flex>
   </v-layout>
 </v-container>
@@ -131,6 +138,9 @@ import axios from 'axios'
 export default {
   data () {
     return {
+      today: new Date().toISOString().substr(0, 10),
+      now: today.getHours + ':' + today.getMinues() + ':' + today.Seconds(),
+      url: 'http://neon.whiteboard.house/v0/#/reports/?start_date=',
       wholeResponse: [],
       comment: '',
       img: '',
@@ -139,6 +149,7 @@ export default {
           comment: 'good article'
         }
       ],
+      sampleImage: '../public/img/outbreak.PNG',
       dialog: false,
       headline: 'First aid',
       publish: new Date().toISOString().substr(0, 10),
@@ -160,8 +171,9 @@ export default {
     }
   },
   mounted () {
+    var yesterday = new Date((this.today.setDate(this.getDate() - 1))).toString()
     axios
-      .get('http://localhost:8080/v0/articles/')
+      .get(this.url)
       .then(response => {
         console.log(response.data)
         if (response.data.count !== 0) {

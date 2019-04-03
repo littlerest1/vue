@@ -1,13 +1,16 @@
+<!-- Google Map API import -->
 <template>
+  <div>
     <vue-google-autocomplete
         ref="address"
         id="map"
         classname="form-control"
         placeholder="Search by area"
+        types="(cities)"
         v-on:placechanged="getAddressData"
-        size:300px
     >
     </vue-google-autocomplete>
+  </div>
 </template>
 
 <script>

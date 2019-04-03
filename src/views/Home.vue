@@ -1,9 +1,13 @@
+<!--
+  Home component controls the section below intro & toolbar.
+  Includes map, article and footer components in this section
+-->
+
 <template>
   <div class="home">
     <Intro/>
-    <h1 style="font-family: 'ZCOOL QingKe HuangYou', cursive;">Today is {{date}}
-          <Location/>
-    </h1>
+    <h1>Today is {{date}}</h1>
+    <h2><SearchBar/> </h2>
     <Article/>
     <Footer/>
   </div>
@@ -11,18 +15,16 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import Intro from '@/components/Intro.vue' // @ is an alias to /src
-import Sheets from '@/components/Sheets.vue'
+import Intro from '@/components/Intro.vue'
 import Footer from '@/components/Footer.vue'
 import Article from '@/components/Articles.vue'
-import Location from '@/components/Location.vue'
+import SearchBar from '@/components/SearchBar.vue'
 @Component({
   components: {
     Intro,
-    Sheets,
     Footer,
     Article,
-    Location
+    SearchBar
   }
 })
 export default class Home extends Vue {

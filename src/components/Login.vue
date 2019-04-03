@@ -1,9 +1,15 @@
+<!-- Login & registration entry
+     registration is invisible initially
+     login is visible
+     after enter the button of register the gegistration sheet will appear
+-->
 <template>
   <div class="text-xs-center">
     <v-layout>
         <v-btn slot="activator" color="white" dark flat v-if="!visible">
           <span class="mr-1" style="color:white;font-size:20px" @click="logoutLocal">Logout</span>
         </v-btn>
+        <!-- Login -->
         <v-dialog v-model="dialog" persistent max-width="600px">
         <v-btn slot="activator" color="white" dark flat v-if="visible">
           <span class="mr-1" style="font-size:20px">Login</span>
@@ -42,6 +48,8 @@
             <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn color="orange" flat @click="dialog = false">Close</v-btn>
+
+            <!-- register -->
             <v-dialog v-model="Register" persistent max-width="600px" height="700px;">
                 <template v-slot:activator="{ on }">
                     <v-btn color="orange" flat @click="dialog = false,Register = true">Register</v-btn>
@@ -108,6 +116,7 @@
   </div>
 </template>
 
+<!-- js that controls the input and request for the api check the validation -->
 <script>
 import axios from 'axios'
 export default {
@@ -126,13 +135,14 @@ export default {
     warn2: false,
     warn3: false,
     visible: true,
-    url: 'http://localhost:8080/v0/jwt/'
+    url: 'http://neon.whiteboard.house/v0/users/'
   }),
   methods: {
+    // submit for login
     submit: function () {
       console.log(`Username is ${this.Username} and pw is ${this.Password}`)
       if (this.Password !== '' && this.Username !== '') {
-        axios.post(this.url, {
+        axios.post('http://neon.whiteboard.house/v0/jwt/', {
           'username': this.Username,
           'password': this.Password
         })
@@ -159,37 +169,38 @@ export default {
         this.warn3 = false
       }
     },
+    // logout function
     logoutLocal: function () {
       console.log('Logging out')
       localStorage.clear()
       this.visible = true
     },
+    // register function
     submit1: function () {
       console.log(`Username is ${this.UsernameR} and pw is ${this.PasswordR}`)
       console.log(`First name is ${this.first_name} and last is ${this.last_name}`)
       if (this.PasswordR !== '' && this.UsernameR !== '' && this.first_name !== '' && this.last_name !== '') {
-        axios.post('http://localhost:8080/v0/users/', {
+        axios.post(this.url, {
           'username': this.UsernameR,
           'password': this.PasswordR,
           'first_name': this.first_name,
           'last_name': this.last_name
-        })
-          .then((response) => {
-            console.log(response)
-            if (response.status === 201) {
-              console.log(response.data)
-              this.Register = false
-              this.warn1 = false
-              this.warn2 = false
-            } else {
-              this.warn2 = true
-              this.warn1 = false
-            }
-          }, (error) => {
-            console.log(error)
+        }).then((response) => {
+          console.log(response)
+          if (response.status === 201) {
+            console.log(response.data)
+            this.Register = false
+            this.warn1 = false
+            this.warn2 = false
+          } else {
             this.warn2 = true
             this.warn1 = false
-          })
+          }
+        }, (error) => {
+          console.log(error)
+          this.warn2 = true
+          this.warn1 = false
+        })
       } else {
         this.warn1 = true
         this.warn2 = false

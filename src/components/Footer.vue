@@ -1,3 +1,4 @@
+<!-- footer section -->
 <template>
   <v-footer
     dark color="black"

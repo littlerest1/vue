@@ -4,6 +4,7 @@ import Home from './views/Home.vue'
 import About from './views/About.vue'
 import Support from './views/Support.vue'
 import Map from './views/Map.vue'
+import Result from './views/Result.vue'
 
 Vue.use(Router)
 
@@ -31,6 +32,11 @@ export default new Router({
       path: '/map',
       name: 'map',
       component: Map
+    },
+    {
+      path: '/result/:start/:end/:keyword/:add',
+      name: 'result',
+      component: Result
     }
   ]
 })

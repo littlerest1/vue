@@ -1,3 +1,4 @@
+<!-- Map views google map API import -->
 <template>
   <div class="map">
 <GmapMap
