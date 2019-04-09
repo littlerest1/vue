@@ -60,6 +60,7 @@
           <v-date-picker v-model="date2" no-title @input="menu2 = false"></v-date-picker>
         </v-menu>
       </v-flex>
+
         <!-- Search keyword section -->
         <v-text-field
         hide-details
@@ -84,7 +85,25 @@
         </vue-google-autocomplete>
 
         <div class="text-uppercase md-and-up">
-        <router-link :to="{ name: 'result', params: { start:this.date,end:this.date2,keyword:this.search,add:this.address}}">
+           <router-link v-if="search && city && date !== date2" :to="{ name: 'result', params: { start:this.date,end:this.date2,keyword:this.search,location:this.city}}">
+       <!-- <router-link to='/map' style="text-decoration: none;">-->
+          <v-btn flat>
+              GO!
+          </v-btn>
+        </router-link>
+        <router-link v-if="search && date !== date2" :to="{ name: 'result', params: { start:this.date,end:this.date2,keyword:this.search,location:'/'}}">
+       <!-- <router-link to='/map' style="text-decoration: none;">-->
+          <v-btn flat>
+              GO!
+          </v-btn>
+        </router-link>
+         <router-link v-else-if="city && date !== date2" :to="{ name: 'result', params: { start:this.date,end:this.date2,keyword:'/',location:this.city}}">
+       <!-- <router-link to='/map' style="text-decoration: none;">-->
+          <v-btn flat>
+              GO!
+          </v-btn>
+        </router-link>
+        <router-link v-else-if="date !== date2" :to="{ name: 'result', params: { start:this.date,end:this.date2,keyword:'/',location:'/'}}">
        <!-- <router-link to='/map' style="text-decoration: none;">-->
           <v-btn flat>
               GO!
@@ -106,14 +125,17 @@ import axios from 'axios'
 export default {
   components: { VueGoogleAutocomplete },
   data: vm => ({
-    address: '?',
+    address: null,
     date: new Date().toISOString().substr(0, 10),
     dateFormatted: vm.formatDate(new Date().toISOString().substr(0, 10)),
     menu1: false,
-    search: ' ',
+    search: null,
     menu2: false,
     date2: new Date().toISOString().substr(0, 10),
-    dateFormatted2: vm.formatDate(new Date().toISOString().substr(0, 10))
+    dateFormatted2: vm.formatDate(new Date().toISOString().substr(0, 10)),
+    city: null,
+    state: null,
+    country: null
   }),
 
   watch: {
@@ -128,6 +150,9 @@ export default {
   methods: {
     getAddressData: function (addressData, placeResultData, id) {
       this.address = addressData
+      this.city = addressData.locality
+      this.state = addressData.administrative_area_level_1
+      this.country = addressData.country
       console.log(addressData)
       console.log(addressData.country)
       console.log(addressData.administrative_area_level_1)
@@ -152,19 +177,8 @@ export default {
       console.log(`${this.date}`)
       console.log(`${this.date2}`)
       if (this.date === this.date2) {
-        console.log('need to change')
+        //   this.warning = true
       }
-      // if (this.search !== '') {
-      // axios.get(url, {
-      // 'search': this.search
-      // })
-      // .then(response => {
-      //  console.log(response.data)
-      // })
-      // .catch(error => {
-      // console.log(error)
-      // })
-      // }
     }
   }
 }

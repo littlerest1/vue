@@ -8,7 +8,6 @@
     <Intro/>
     <h1>Today is {{date}}</h1>
     <h2><SearchBar/> </h2>
-    <Article/>
     <Footer/>
   </div>
 </template>
